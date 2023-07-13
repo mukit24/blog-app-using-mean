@@ -9,7 +9,8 @@ import { PostsService } from '../posts.service';
   styleUrls: ['./post-create.component.css']
 })
 export class PostCreateComponent {
-
+  @Output() postCreated = new EventEmitter<Post>();
+  
   constructor(private postService: PostsService) {}
 
   onPostCreate(form: NgForm) {
@@ -21,6 +22,7 @@ export class PostCreateComponent {
 
     this.postService.addPost(newPost).subscribe((data) => {
       console.log(data.message);
+      this.postCreated.emit(newPost);
     })
     
     form.reset();

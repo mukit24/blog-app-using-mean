@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
 
@@ -7,15 +7,23 @@ import { PostsService } from '../posts.service';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.css']
 })
-export class PostListComponent implements OnInit{
-  posts: Post[];
 
-  constructor(private postService: PostsService) {}
+export class PostListComponent implements OnInit, OnChanges{
+  @Input() post: Post;
+  posts: Post[];
+  constructor(private postService: PostsService) { }
 
   ngOnInit(): void {
     this.postService.getPosts().subscribe((data) => {
       this.posts = data.posts;
     })
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes.post.currentValue) {
+      console.log(changes.post.currentValue);
+      this.posts.push(changes.post.currentValue);
+    }
   }
   
 }

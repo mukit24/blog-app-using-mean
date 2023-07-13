@@ -1,7 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const Post = require('./models/post');
+const mongoose = require('mongoose');
 
 const app = express();
+
+mongoose.connect('mongodb+srv://pranto1824:qQX0JjQcMRJPJ0g6@cluster0.mu5t5a8.mongodb.net/mean-blog?retryWrites=true&w=majority').then(()=> {
+    console.log('Connected to DB');
+}).catch(() => {
+    console.log('connection failed');
+})
 
 app.use(bodyParser.json());
 
@@ -12,30 +20,22 @@ app.use((req,res,next) => {
 })
 
 app.post('/api/posts', (req,res,next) => {
-    const post = req.body;
-    console.log(post);
+    const post = new Post({
+        title: req.body.title,
+        content: req.body.content
+    });
+    post.save();
     res.status(201).json({
         message: 'Post Created Successfully'
     })
 })
 
 app.get('/api/posts',(req, res, next) => {
-    const posts = [
-        {
-            id: 'id1',
-            title: 'post1 title',
-            content: 'content from server' 
-        },
-        {
-            id: 'id2',
-            title: 'post3 title',
-            content: 'content from server!!!' 
-        }
-    ]
-
-    res.status(200).json({
-        message: 'Posts Fetch Successfully',
-        posts: posts
+    Post.find().then((posts) => {
+        res.status(200).json({
+            message: 'Posts Fetch Successfully',
+            posts: posts
+        })
     })
 })
 
