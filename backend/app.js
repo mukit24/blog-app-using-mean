@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 app.use((req,res,next) => {
     res.setHeader('Access-Control-Allow-Origin','*');
     res.setHeader('Access-Control-Allow-Headers','*');
+    res.setHeader('Access-Control-Allow-Methods','*');
     next();
 })
 
@@ -24,10 +25,12 @@ app.post('/api/posts', (req,res,next) => {
         title: req.body.title,
         content: req.body.content
     });
-    post.save();
-    res.status(201).json({
-        message: 'Post Created Successfully'
-    })
+    post.save().then(data => {
+        res.status(201).json({
+            message: 'Post Created Successfully',
+            postId: data._id
+        })
+    });
 })
 
 app.get('/api/posts',(req, res, next) => {
@@ -35,6 +38,15 @@ app.get('/api/posts',(req, res, next) => {
         res.status(200).json({
             message: 'Posts Fetch Successfully',
             posts: posts
+        })
+    })
+})
+
+app.delete('/api/posts/:id', (req, res, next) => {
+    Post.deleteOne({_id: req.params.id}).then( result => {
+        console.log(result);
+        res.status(200).json({
+            message: 'Post Deleted Successfully'
         })
     })
 })

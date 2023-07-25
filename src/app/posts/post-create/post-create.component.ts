@@ -22,6 +22,7 @@ export class PostCreateComponent {
 
     this.postService.addPost(newPost).subscribe((data) => {
       console.log(data.message);
+      newPost.id = data.postId;
       this.postCreated.emit(newPost);
     })
     

@@ -15,7 +15,7 @@ export class PostListComponent implements OnInit, OnChanges{
 
   ngOnInit(): void {
     this.postService.getPosts().subscribe((data) => {
-      this.posts = data.posts;
+      this.posts = data;
     })
   }
 
@@ -24,6 +24,15 @@ export class PostListComponent implements OnInit, OnChanges{
       console.log(changes.post.currentValue);
       this.posts.push(changes.post.currentValue);
     }
+  }
+
+  onDelete(id: string){
+    this.postService.deletePost(id).subscribe( data => {
+      console.log(data.message);
+      this.postService.getPosts().subscribe((data) => {
+        this.posts = data;
+      })
+    })
   }
   
 }
