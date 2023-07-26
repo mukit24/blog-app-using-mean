@@ -11,11 +11,13 @@ import { PostsService } from '../posts.service';
 export class PostListComponent implements OnInit, OnChanges{
   @Input() post: Post;
   posts: Post[];
+  isLoading = true;
   constructor(private postService: PostsService) { }
 
   ngOnInit(): void {
     this.postService.getPosts().subscribe((data) => {
       this.posts = data;
+      this.isLoading = false;
     })
   }
 

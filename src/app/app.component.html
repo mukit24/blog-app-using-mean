@@ -1,7 +1,8 @@
 <app-header></app-header>
 <div class="bg-light">
     <div class="p-5">
-        <app-post-create (postCreated)="onPostAdded($event)"></app-post-create>
-        <app-post-list [post]="storedPost"></app-post-list>
+        <!-- <app-post-create (postCreated)="onPostAdded($event)"></app-post-create>
+        <app-post-list [post]="storedPost"></app-post-list> -->
+        <router-outlet></router-outlet>
     </div>
 </div>

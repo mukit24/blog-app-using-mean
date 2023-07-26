@@ -23,11 +23,19 @@ export class PostsService {
       }))
   }
 
+  getPost(id: String) {
+    return this.http.get<{ message: String, post: Post}>('http://localhost:3000/api/posts/' + id);
+  }
+
   addPost(post: Post) {
     return this.http.post<{ message: String, postId: string }>('http://localhost:3000/api/posts', post);
   }
 
   deletePost(postId: String) {
     return this.http.delete<{ message: String }>('http://localhost:3000/api/posts/'+ postId);
+  }
+
+  editPost(id: String, post: Post) {
+    return this.http.put<{ message: String}>('http://localhost:3000/api/posts/'+ id, post);
   }
 }
