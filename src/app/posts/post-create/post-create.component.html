@@ -1,14 +1,17 @@
 <div class="row justify-content-center">
     <div class="col-lg-6">
-        <form #form="ngForm" (ngSubmit)="onSavePost(form)">
+        <form (submit)="onSavePost()" [formGroup]="form">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="title" [ngModel]="post?.title" required>
+                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="title">
                 <label for="floatingInput" class="text-secondary">Post Title</label>
-              </div>
+            </div>
             <div class="form-floating mb-3">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                    style="height: 100px" name="content" [ngModel]="post?.content" required></textarea>
+                    style="height: 100px" formControlName="content"></textarea>
                 <label for="floatingTextarea2" class="text-secondary">Post Content</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-control" type="file" id="formFile">
             </div>
             <button *ngIf="mode === 'create'" type="submit" class="btn btn-success" [disabled]="!form.valid">Submit</button>
             <button *ngIf="mode === 'edit'" type="submit" class="btn btn-primary" [disabled]="!form.valid">Update</button>
