@@ -11,7 +11,10 @@
                 <label for="floatingTextarea2" class="text-secondary">Post Content</label>
             </div>
             <div class="mb-3">
-                <input class="form-control" type="file" id="formFile">
+                <input class="form-control" type="file" id="formFile"  formControlName="image" (change)="onPickImage($event)">
+            </div>
+            <div class="image-preview mb-3" *ngIf="imagePreview">
+                <img [src]="imagePreview" [alt]="form.value.title">
             </div>
             <button *ngIf="mode === 'create'" type="submit" class="btn btn-success" [disabled]="!form.valid">Submit</button>
             <button *ngIf="mode === 'edit'" type="submit" class="btn btn-primary" [disabled]="!form.valid">Update</button>
