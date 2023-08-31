@@ -23,7 +23,7 @@ export class PostCreateComponent implements OnInit {
     this.form = this.fb.group({
       title: [null, RxwebValidators.required()],
       content: [null, RxwebValidators.required()],
-      image: [null, [RxwebValidators.required(), RxwebValidators.extension({ extensions: ["jpeg", "jpg", "gif", "png"] })]
+      image: [null, [RxwebValidators.required(), RxwebValidators.extension({ extensions: ["jpeg", "jpg", "png"] })]
       ],
     })
     this.route.params.subscribe(params => {
