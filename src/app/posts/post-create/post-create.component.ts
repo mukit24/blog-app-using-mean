@@ -32,7 +32,8 @@ export class PostCreateComponent implements OnInit {
         this.mode = 'edit';
         this.postService.getPost(this.postId).subscribe(data => {
           this.post = data.post;
-          this.form.setValue({ title: this.post.title, content: this.post.content });
+          this.imagePreview = this.post.imagePath;
+          this.form.setValue({ title: this.post.title, content: this.post.content, image: this.post.imagePath });
         })
       }
     })
@@ -40,8 +41,8 @@ export class PostCreateComponent implements OnInit {
 
   onPickImage(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    // this.form.patchValue({ image: file });
-    // this.form.get('image').updateValueAndValidity();
+    this.form.patchValue({ image: file });
+    this.form.get('image').updateValueAndValidity();
     console.log(this.form);
     const reader = new FileReader();
     reader.onload = () => {
@@ -55,13 +56,13 @@ export class PostCreateComponent implements OnInit {
       id: null,
       title: this.form.value.title,
       content: this.form.value.content,
+      image: this.form.value.image,
     }
 
     if (this.mode === 'create') {
       this.postService.addPost(newPost).subscribe((result) => {
         console.log(result.message);
-        // newPost.id = data.postId;
-        // this.postCreated.emit(newPost);
+        newPost.id = result.postId;
         this.router.navigate(['/']);
       })
     } else if (this.mode === 'edit') {

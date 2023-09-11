@@ -18,6 +18,9 @@
                     <div class="accordion-body">
                         {{post.content}}
                     </div>
+                    <div class="post-image">
+                        <img [src]="post.imagePath" class="img-fluid" [alt]="post.title">
+                    </div>
                     <button class="btn btn-danger" (click)="onDelete(post.id)">Delete</button>
                     <button class="btn btn-primary me-2" [routerLink]="['/edit', post.id]">Edit</button>
                 </div>

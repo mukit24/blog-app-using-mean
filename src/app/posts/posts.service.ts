@@ -17,6 +17,7 @@ export class PostsService {
           return {
             title: post.title,
             content: post.content,
+            imagePath: post.imagePath,
             id: post._id
           }
         })
@@ -28,7 +29,11 @@ export class PostsService {
   }
 
   addPost(post: Post) {
-    return this.http.post<{ message: String, postId: string }>('http://localhost:3000/api/posts', post);
+    const postData = new FormData();
+    postData.append('title', post.title);
+    postData.append('content', post.content);
+    postData.append('image', post.image, post.title);
+    return this.http.post<{ message: String, postId: string }>('http://localhost:3000/api/posts', postData);
   }
 
   deletePost(postId: String) {
@@ -36,6 +41,16 @@ export class PostsService {
   }
 
   editPost(id: String, post: Post) {
-    return this.http.put<{ message: String}>('http://localhost:3000/api/posts/'+ id, post);
+    let postData: any;
+    if(typeof(post.image) ==='object') {
+      postData = new FormData();
+      postData.append('_id', post.id);
+      postData.append('title', post.title);
+      postData.append('content', post.content);
+      postData.append('image', post.image, post.title);
+    } else {
+      postData = post;
+    }
+    return this.http.put<{ message: String}>('http://localhost:3000/api/posts/'+ id, postData);
   }
 }
