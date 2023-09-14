@@ -25,7 +25,15 @@ export class PostsService {
   }
 
   getPost(id: String) {
-    return this.http.get<{ message: String, post: Post}>('http://localhost:3000/api/posts/' + id);
+    return this.http.get<{ message: String, post: any }>('http://localhost:3000/api/posts/' + id)
+      .pipe(map((postData) => {
+        return {
+          title: postData.post.title,
+          content: postData.post.content,
+          imagePath: postData.post.imagePath,
+          id: postData.post._id
+        }
+      }));
   }
 
   addPost(post: Post) {
@@ -37,12 +45,12 @@ export class PostsService {
   }
 
   deletePost(postId: String) {
-    return this.http.delete<{ message: String }>('http://localhost:3000/api/posts/'+ postId);
+    return this.http.delete<{ message: String }>('http://localhost:3000/api/posts/' + postId);
   }
 
   editPost(id: String, post: Post) {
     let postData: any;
-    if(typeof(post.image) ==='object') {
+    if (typeof (post.image) === 'object') {
       postData = new FormData();
       postData.append('title', post.title);
       postData.append('content', post.content);
@@ -50,6 +58,6 @@ export class PostsService {
     } else {
       postData = post;
     }
-    return this.http.put<{ message: String}>('http://localhost:3000/api/posts/'+ id, postData);
+    return this.http.put<{ message: String }>('http://localhost:3000/api/posts/' + id, postData);
   }
 }

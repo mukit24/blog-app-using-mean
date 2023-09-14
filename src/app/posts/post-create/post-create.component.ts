@@ -31,7 +31,7 @@ export class PostCreateComponent implements OnInit {
       if (this.postId) {
         this.mode = 'edit';
         this.postService.getPost(this.postId).subscribe(data => {
-          this.post = data.post;
+          this.post = data;
           this.imagePreview = this.post.imagePath;
           this.form.setValue({ title: this.post.title, content: this.post.content, image: this.post.imagePath });
         })
@@ -66,6 +66,7 @@ export class PostCreateComponent implements OnInit {
         this.router.navigate(['/']);
       })
     } else if (this.mode === 'edit') {
+      newPost.id = this.post.id;
       this.postService.editPost(this.postId, newPost).subscribe(result => {
         this.router.navigate(['/']);
       })

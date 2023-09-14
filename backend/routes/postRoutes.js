@@ -48,12 +48,12 @@ router.put('/:id',multer({storage: storage}).single('image'), (req, res, next) =
     }
     
     const post = new Post({
-        _id: req.params.id,
+        _id: req.body.id,
         title: req.body.title,
         content: req.body.content,
         imagePath: imagePath
     })
-    Post.updateOne({ _id: req.params.id }, post).then(result => {
+    Post.updateOne({ _id: req.body.id }, post).then(result => {
         // console.log(result);
         res.status(200).json({
             messsage: 'Updated Successfully'
