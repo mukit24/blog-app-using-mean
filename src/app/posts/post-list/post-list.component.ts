@@ -12,6 +12,8 @@ export class PostListComponent implements OnInit, OnChanges{
   @Input() post: Post;
   posts: Post[];
   isLoading = true;
+  first: number = 0;
+  rows: number = 2;
   constructor(private postService: PostsService) { }
 
   ngOnInit(): void {
@@ -36,6 +38,11 @@ export class PostListComponent implements OnInit, OnChanges{
         this.posts = data;
       })
     })
+  }
+
+  onPageChange(event: any) {
+    this.first = event.first;
+    this.rows = event.rows;
   }
   
 }
