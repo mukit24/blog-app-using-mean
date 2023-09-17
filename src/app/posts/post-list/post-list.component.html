@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
     <div class="col-lg-6">
-        <div class="text-center"  *ngIf="isLoading">
+        <div class="text-center" *ngIf="isLoading">
             <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
@@ -26,15 +26,8 @@
                 </div>
             </div>
         </div>
-        <!-- <div>
-            <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="5" [rowsPerPageOptions]="[2, 3, 5]"></p-paginator>
-        </div> -->
-        <!-- <p-card header="Title">
-            <p class="m-0">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-                quas!
-            </p>
-        </p-card> -->
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="postPerPage" [totalRecords]="5"
+            [rowsPerPageOptions]="[2, 3, 5]"></p-paginator>
         <h5 class="text-center text-info" *ngIf="posts?.length < 1 && !isLoading">No Posts Have Not Added Yet</h5>
     </div>
 </div>
