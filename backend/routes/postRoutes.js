@@ -64,14 +64,20 @@ router.put('/:id',multer({storage: storage}).single('image'), (req, res, next) =
 router.get('', (req, res, next) => {
     const pageSize = +req.query.pagesize || 5;
     const page = +req.query.page || 1;
-    // console.log(`${pageSize} and ${page}`);
+    let fetchPosts;
+    
     Post.find()
     .skip(pageSize * (page-1))
     .limit(pageSize)
     .then((posts) => {
+        fetchPosts = posts;
+        return Post.count();
+    })
+    .then((count) => {
         res.status(200).json({
             message: 'Posts Fetch Successfully',
-            posts: posts
+            posts: fetchPosts,
+            total: count
         })
     })
 })

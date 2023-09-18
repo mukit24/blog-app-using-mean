@@ -22,12 +22,14 @@ export class PostListComponent implements OnInit, OnChanges {
   first: number = 0;
   postPerPage: number = 2;
   currentPage: number = 1;
+  totalPost: number;
   constructor(private postService: PostsService) { }
 
   ngOnInit(): void {
     this.postService.getPosts(this.postPerPage, this.currentPage).subscribe((data) => {
       console.log(data);
-      this.posts = data;
+      this.posts = data.posts;
+      this.totalPost = data.totalPost;
       this.isLoading = false;
     })
   }
@@ -43,7 +45,7 @@ export class PostListComponent implements OnInit, OnChanges {
     this.postService.deletePost(id).subscribe(data => {
       console.log(data.message);
       this.postService.getPosts(this.postPerPage, this.currentPage).subscribe((data) => {
-        this.posts = data;
+        this.posts = data.posts;
       })
     })
   }
@@ -52,7 +54,7 @@ export class PostListComponent implements OnInit, OnChanges {
     this.currentPage = event.page + 1;
     this.postPerPage = event.rows;
     this.postService.getPosts(this.postPerPage, this.currentPage).subscribe((data) => {
-      this.posts = data;
+      this.posts = data.posts;
     })
   }
 }

@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="postPerPage" [totalRecords]="5"
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="postPerPage" [totalRecords]="totalPost"
             [rowsPerPageOptions]="[2, 3, 5]"></p-paginator>
         <h5 class="text-center text-info" *ngIf="posts?.length < 1 && !isLoading">No Posts Have Not Added Yet</h5>
     </div>

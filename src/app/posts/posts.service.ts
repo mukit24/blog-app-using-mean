@@ -12,16 +12,18 @@ export class PostsService {
 
   getPosts(postPerPage: number, currentPage: number) {
     const paginationParams = `?pagesize=${postPerPage}&page=${currentPage}`
-    return this.http.get<{ message: String, posts: any }>('http://localhost:3000/api/posts' + paginationParams)
+    return this.http.get<{ message: String, posts: any, total: number }>('http://localhost:3000/api/posts' + paginationParams)
       .pipe(map((postData) => {
-        return postData.posts.map(post => {
-          return {
-            title: post.title,
-            content: post.content,
-            imagePath: post.imagePath,
-            id: post._id
-          }
-        })
+        return {
+          posts: postData.posts.map(post => {
+            return {
+              title: post.title,
+              content: post.content,
+              imagePath: post.imagePath,
+              id: post._id
+            }
+          }), totalPost: postData.total
+        }
       }))
   }
 
