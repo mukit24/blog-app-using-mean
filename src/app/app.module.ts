@@ -13,13 +13,22 @@ import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 import { PaginatorModule } from 'primeng/paginator';
 import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { PanelModule } from 'primeng/panel';
+
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PostCreateComponent,
     HeaderComponent,
-    PostListComponent
+    PostListComponent,
+    SignupComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +38,11 @@ import { CardModule } from 'primeng/card';
     ReactiveFormsModule,
     HttpClientModule,
     PaginatorModule,
-    CardModule
+    CardModule,
+    ButtonModule,
+    InputTextModule,
+    PasswordModule,
+    PanelModule
   ],
   providers: [],
   bootstrap: [AppComponent]

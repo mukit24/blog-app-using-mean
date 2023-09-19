@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+    <div class="col-lg-5">
+        <p-panel header="Sign-Up Form">
+            <form (submit)="onSignUp()" [formGroup]="signUpForm">
+                <div class="p-fluid mb-3">
+                    <label htmlFor="username" class="text-muted">Username</label>
+                    <input pInputText id="username" formControlName="username" />
+                    <small class="p-error"
+                        *ngIf="(formControl.username.touched || formControl.username.dirty) && formControl.username.errors">
+                        <div *ngIf="formControl.username.errors.required">
+                            {{formControl.username.errors.required.message}}
+                        </div>
+                        <div *ngIf="formControl.username.errors.maxLength">
+                            {{formControl.username.errors.maxLength.message}}
+                        </div>
+                    </small>
+                </div>
+    
+                <div class="p-fluid mb-3">
+                    <label htmlFor="email" class="text-muted">Email</label>
+                    <input pInputText id="email" formControlName="email" />
+                    <small class="p-error"
+                        *ngIf="(formControl.email.touched || formControl.email.dirty) && formControl.email.errors">
+                        <div *ngIf="formControl.email.errors.required">
+                            {{formControl.email.errors.required.message}}
+                        </div>
+                        <div *ngIf="formControl.email.errors.email">
+                            {{formControl.email.errors.email.message}}
+                        </div>
+                    </small>
+                </div>
+    
+                <div class="p-fluid mb-3">
+                    <label for="password" class="text-muted">Password</label>
+                    <p-password formControlName="password">
+                        <ng-template pTemplate="header">
+                            <h6>Pick a password</h6>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <p-divider></p-divider>
+                            <p class="mt-2">Suggestions</p>
+                            <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                                <li>At least one lowercase</li>
+                                <li>At least one uppercase</li>
+                                <li>At least one numeric</li>
+                                <li>Minimum 8 characters</li>
+                            </ul>
+                        </ng-template>
+                    </p-password>
+                    <small class="p-error"
+                        *ngIf="(formControl.password.touched || formControl.password.dirty) && formControl.password.errors">
+                        <div *ngIf="formControl.password.errors.required">
+                            {{formControl.password.errors.required.message}}
+                        </div>
+                    </small>
+                </div>
+                
+                <p-button label="Signup" [disabled]="!signUpForm.valid" styleClass="p-button-raised p-button-sm p-button-success" type="submit"></p-button>
+            </form>
+        </p-panel>
+    </div>
+</div>
